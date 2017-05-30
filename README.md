@@ -10,6 +10,6 @@ Unityで作ったタイマーです。
 五月雨ちゃんはおまけ。
 
 ### 開発環境
-Unity5.5.0f3<br>
+Unity5.5.2f1<br>
 VisualStudio2012<br>
 SAI

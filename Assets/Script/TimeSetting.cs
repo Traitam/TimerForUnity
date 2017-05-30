@@ -7,21 +7,22 @@ public class TimeSetting : MonoBehaviour {
     public Text min,sec,timeup;
     private float settingTime,minTime,secTime;
     public ButtonSetting buttonSetting;
-    private bool startFlag,firstFlag,endFlag;
+    private bool isStart,isFirst,isEnd;
 
     public Button startB, stopB, resetB;
 
-    public bool FirstFlag{
+    //初回起動か
+    public bool IsFirst{
         get{
-            return firstFlag;
+            return isFirst;
         }
     }
 
-    public bool StartFlag
+    public bool IsStart 
     {
         get
         {
-            return startFlag;
+            return isStart;
         }
     }
 
@@ -32,9 +33,9 @@ public class TimeSetting : MonoBehaviour {
         stopB=GameObject.Find("Stop").GetComponent<Button>();
         resetB = GameObject.Find("Reset").GetComponent<Button>();
 
-        startFlag= false;
-        firstFlag =true;
-        endFlag = false;
+        isStart= false;
+        isFirst =true;
+        isEnd = false;
 
         if (startB == null || stopB == null || resetB == null)
             Debug.LogError("is null");
@@ -45,7 +46,7 @@ public class TimeSetting : MonoBehaviour {
         int displaySec = (int)secTime;
         int displayMin = (int)minTime;
 
-        if (startFlag && !endFlag)
+        if (isStart && !isEnd)
         {
             settingTime -= Time.deltaTime;
             secTime -= Time.deltaTime;
@@ -59,19 +60,19 @@ public class TimeSetting : MonoBehaviour {
             }
             else if (minTime == 0 && secTime <= 0)
             {
-                endFlag = true;
+                isEnd = true;
             }
             timeup.text = "どうさちゅう！！";
         }
-        else if(!endFlag)
+        else if(!isEnd)
         {
             timeup.text = "たいきちゅう！！";
         }
 
-        if(endFlag){
+        if(isEnd){
             timeup.text = "おしまい！！";
            // endFlag = true;
-            startFlag = false;
+            isStart = false;
         }
         //int displayTime = (int)settingTime;
         //sec.text = displayTime.ToString("D2");
@@ -79,7 +80,7 @@ public class TimeSetting : MonoBehaviour {
         
 
 
-        if (!startFlag && !endFlag)
+        if (!isStart && !isEnd)
         {
             startB.interactable = true;
             stopB.interactable = false;
@@ -96,32 +97,32 @@ public class TimeSetting : MonoBehaviour {
 
     public void StartTimer()
     {
-        if (firstFlag)
+        if (isFirst)
         {
             settingTime = (buttonSetting.TimerMin * 60) + (buttonSetting.TimerSec);
             minTime = buttonSetting.TimerMin;
             secTime = buttonSetting.TimerSec;
-            firstFlag = false;
-            startFlag = true;
+            isFirst = false;
+            isStart = true;
             Debug.Log("_____"+settingTime);
         }
         else
         {
-            startFlag = true;
+            isStart = true;
         }
 
     }
 
     public void StopTimer()
     {
-        startFlag = false;
-        endFlag = false;
+        isStart = false;
+        isEnd = false;
     }
 
     public void ResetTimer()
     {
-        firstFlag = true;
-        startFlag = false;
+        isFirst = true;
+        isStart = false;
 
         buttonSetting.TimerMin = 3;
         buttonSetting.TimerSec = 0;

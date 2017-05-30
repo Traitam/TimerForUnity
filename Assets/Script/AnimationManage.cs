@@ -16,7 +16,8 @@ public class AnimationManage : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (timeSetting.StartFlag)
+        //タイマー動いていたらアニメーション
+        if (timeSetting.IsStart)
         {
             anim.speed = 1;
         }

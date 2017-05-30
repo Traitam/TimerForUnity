@@ -44,7 +44,7 @@ public class ButtonSetting : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (timeSetting.FirstFlag)
+        if (timeSetting.IsFirst)
         {
             min.text = timerMin.ToString("D2");
             sec.text = timerSec.ToString("D2");
